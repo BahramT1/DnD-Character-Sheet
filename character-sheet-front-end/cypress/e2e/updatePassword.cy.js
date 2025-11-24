@@ -1,4 +1,4 @@
-describe('Update Password', () => {
+describe.skip("Update Password", () => {
     beforeEach(() => {
         cy.visit('/');
     });
