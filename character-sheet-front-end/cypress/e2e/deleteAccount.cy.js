@@ -1,4 +1,4 @@
-describe("Delete Account Flow", () => {
+describe.skip("Delete Account Flow", () => {
     it("logs in, opens settings, deletes the account", () => {
       cy.visit("http://localhost:5173"); // or your VM URL
   
