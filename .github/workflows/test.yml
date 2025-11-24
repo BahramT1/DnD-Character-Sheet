@@ -7,7 +7,7 @@ on:
     branches: [ main, dev ]
 
 jobs:
-  #backend and integration testing
+  #backend and integration testing 
   backend-tests:
     runs-on: ubuntu-latest
 
@@ -15,13 +15,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Create .env file for CI
+        run: cp .env.ci .env
+
       - name: Start database container
         run: docker compose up -d database
 
       - name: Wait for database to start
         run: |
           echo "Waiting for MySQL (database service) to start..."
-          # Simple wait – good enough for this project
           sleep 20
 
       - name: Run backend unit tests
@@ -34,7 +36,7 @@ jobs:
         if: always()
         run: docker compose down -v
 
-  #frontend unit tests
+  #frontend unit tests 
   frontend-tests:
     runs-on: ubuntu-latest
 
@@ -66,10 +68,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Create .env file for CI
+        run: cp .env.ci .env
+
       - name: Start full stack (database + backend + frontend)
         run: docker compose up -d --build
+
       - name: Wait for backend and frontend to be ready
-        run: echo "Waiting for backend on http://localhost:5050 ..."
+        run: |
+          echo "Waiting for backend on http://localhost:5050 ..."
           for i in {1..30}; do
             if curl -sSf http://localhost:5050 > /dev/null; then
               echo "Backend is up!"

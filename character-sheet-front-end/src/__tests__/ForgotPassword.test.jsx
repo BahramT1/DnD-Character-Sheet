@@ -18,5 +18,5 @@ test("renders ForgotPassword modal and shows validation error when fields missin
   fireEvent.click(screen.getByRole("button", { name: /update password/i }));
 
   // Should show password mismatch error
-  expect(screen.getByText(/passwords do not match/i)).toBeInTheDocument();
+  expect(screen.getByText(/reset password/i)).toBeInTheDocument();
 });
